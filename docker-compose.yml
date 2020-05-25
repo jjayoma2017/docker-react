@@ -1,0 +1,26 @@
+version: "3"
+services:
+  web:
+    tty: true
+    build:
+      # specificies where does our files pulled from
+      # . means current DIR or folder if its under a folder
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+      - .:/app
+  tests:
+    tty: true
+    build:
+      # specificies where does our files pulled from
+      # . means current DIR or folder if its under a folder
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - .:/app
+    # override starting command in Dockerfile.dev
+    command: ["npm", "run", "test"]
